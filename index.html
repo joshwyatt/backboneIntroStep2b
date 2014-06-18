@@ -10,8 +10,35 @@
 
       //put your Post model class here
 
+      var Post = Backbone.Model.extend({
+
+        initialize: function(post){
+          this.set({ post: post });
+        },
+
+        edit: function(post){
+          this.set({ post: post });
+        }
+
+      });
+
 
       //put your postView class here
+
+      var PostView = Backbone.View.extend({
+
+        initialize: function(){
+          this.model.on('change:post', function() {
+            this.render();
+          }, this);
+        },
+
+        render: function(){
+          var html = "<div>" + this.model.get('post') + "</div>";
+          return this.$el.html(html);
+        }
+
+      });
 
 
       var firstPost = new Post("This is a blog post.  This message should be displayed on my blog.");
